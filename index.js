@@ -6,7 +6,7 @@ const orderPizza = require('./lib/order-pizza');
 async function run() {
   try {
     core.debug("Creating Order");
-    const order = await orderPizza();
+    const order = orderPizza();
     core.setOutput("Order Details", order);
   } catch (error) {
     core.setOutput("Error_Message", error.message)
