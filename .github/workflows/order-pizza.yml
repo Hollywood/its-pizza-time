@@ -33,9 +33,9 @@ jobs:
       uses: hollywood/its-pizza-time@main
       with:
         RECEIVING_ADDRESS: ${{ secrets.ALEXANDRIA_ADDRESS }}
-        CC_Number: ${{ secrets.CC_NUMBER }}
-        CC_Exp: ${{ secrets.CC_EXP }}
+        CC_NUMBER: ${{ secrets.CC_NUMBER }}
+        CC_EXP: ${{ secrets.CC_EXP }}
         CC_CVV: ${{ secrets.CC_CVV }}
-        CC_Zip: ${{ secrets.CC_ZIP }}
+        CC_ZIP: ${{ secrets.CC_ZIP }}
       env:
         LOG_LEVEL: debug
