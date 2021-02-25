@@ -38,12 +38,13 @@ async function orderPizza(){
     try {
         var customerData = core.getInput('RECEIVING_ADDRESS', { required: true })
         var customer = JSON.parse(customerData)
-        var getAddress = new pizzapi.Address(customer.address).getAddressLines()
+        var getAddress = new pizzapi.Address(customer.address)
 
         var closestStoreData = await pizzapi.Util.findNearbyStores(
             `${getAddress}`,
             'Delivery',
             function (storeData) {
+                console.log(storeData)
                 return storeData
             }
         )
