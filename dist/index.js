@@ -10,10 +10,10 @@ const orderPizza = __nccwpck_require__(6552);
 
 
 // most @actions toolkit packages have async methods
-async function run() {
+function run() {
   try {
     core.debug("Creating Order");
-    const order = await orderPizza();
+    const order = orderPizza();
     core.setOutput("Order Details", order);
   } catch (error) {
     core.setOutput("Error_Message", error.message)
@@ -34,14 +34,14 @@ const core = __nccwpck_require__(2186)
 const pizzapi = __nccwpck_require__(5636)
 const wait = __nccwpck_require__(5817)
 
-async function orderPizza(){
+function orderPizza(){
     try {
         let customer = JSON.parse(core.getInput('RECEIVING_ADDRESS', {
             required: true
         }))
         let getAddress = new pizzapi.Address(customer.address).getAddressLines()
 
-        let closestStoreID = await pizzapi.Util.findNearbyStores(
+        let closestStoreID = pizzapi.Util.findNearbyStores(
             `${getAddress}`,
             'Delivery',
             function (storeData) {
@@ -60,7 +60,7 @@ async function orderPizza(){
         // }
 
         core.debug("Fetched the closest store")
-        await wait(parseInt(10000));
+        //await wait(parseInt(10000));
 
         var order = new pizzapi.Order({
             customer: new pizzapi.Customer(customer),
@@ -90,7 +90,7 @@ async function orderPizza(){
 
         console.log(order)
 
-        await wait(parseInt(20000));
+        //await wait(parseInt(20000));
 
         order.price(
             function(result) {
@@ -100,7 +100,7 @@ async function orderPizza(){
 
         console.log(order)
 
-        await wait(parseInt(20000));
+        //await wait(parseInt(20000));
 
         let cardInfo = new order.PaymentObject()
         let cardNumber = core.getInput('CC_NUMBER', {
