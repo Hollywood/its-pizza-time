@@ -25,6 +25,8 @@ outputs:
     description: 'Your Order Number'
   Time_to_Deliver:
     description: 'Length of time until delivery' 
+  ERROR_MESSAGE:
+    description: 'What caused the job to fail'
 runs:
   using: 'node12'
   main: 'dist/index.js'
