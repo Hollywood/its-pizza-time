@@ -13,7 +13,7 @@ jobs:
     # Will run on linux
     runs-on: macos-latest
     outputs:
-      ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.ERROR_MESSAGE }}
+      ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.Error_Message }}
     
     # Checking the comment body for our trigger phrase
     # If found in the body, the steps below will run
@@ -50,14 +50,14 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
-            body: "An error occurred with the order: ${{ steps.Order-Pizza.outputs.ERROR_MESSAGE }}"
+            body: "An error occurred with the order: ${{ steps.Order-Pizza.outputs.Error_Message }}"
           })
 
 
   order_munich:
     runs-on: macos-latest
-    # outputs:
-      # ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.ERROR_MESSAGE }}
+    outputs:
+      Error_Message: ${{ steps.Order-Pizza.outputs.Error_Message }}
       
     if: (contains(github.event.comment.body,'/order pizza Munich'))
 
@@ -89,5 +89,5 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
-            body: "An error occurred with the order: ${{ steps.Order-Pizza.outputs.ERROR_MESSAGE }}"
+            body: "An error occurred with the order: ${{ steps.Order-Pizza.outputs.Error_Message }}"
           })
