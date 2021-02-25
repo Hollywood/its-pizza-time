@@ -40,21 +40,19 @@ function orderPizza(){
         var customer = JSON.parse(customerData)
         var getAddress = new pizzapi.Address(customer.address).getAddressLines()
 
-        var closestStoreID = pizzapi.Util.findNearbyStores(
+        var closestStoreData = pizzapi.Util.findNearbyStores(
             `${getAddress}`,
             'Delivery',
             function (storeData) {
                 console.log(storeData)
-                if (storeData.status !== 0) {
-                   core.setFailed("Couldn't find a store close to this address.")
-                }
-                return storeData.result.Stores[0].StoreID
+                return storeData
             }
         )
 
-        //if (closestStoreID === undefined || closestStoreID == '') {
-        //     throw new Error("Couldn't find a store close to this address.")
-        //}
+        if (closestStoreData.status !== 0) {
+          core.setOutput("Error_Message", "Couldn't find a store close to this address.")
+          core.setFailed("Couldn't find a store close to this address")
+        }
 
         core.debug("Fetched the closest store")
         //await wait(parseInt(10000));
@@ -65,7 +63,7 @@ function orderPizza(){
             // To find the store closest to you, hit this url:
             // https://order.dominos.com/power/store-locator?s=YOUR_ZIP_CODE&c=&type=Delivery
             // Then find the "StoreID" on the first line
-            storeID: closestStoreID,
+            storeID: closestStoreData.Stores[0].storeID,
 
             deliveryMethod: 'Delivery'
         })
@@ -85,17 +83,13 @@ function orderPizza(){
             }
         )
 
-        console.log(order)
-
         //await wait(parseInt(20000));
 
         order.price(
             function(result) {
-                console.debug("Price Added")
+                core.debug("Price Added")
             }
         )
-
-        console.log(order)
 
         //await wait(parseInt(20000));
 
