@@ -34,12 +34,12 @@ const pizzapi = __nccwpck_require__(5636)
 
 async function orderPizza(){
     try {
-        var customer = JSON.parse(core.getInput('RECEIVING_ADDRESS', {
+        let customer = JSON.parse(core.getInput('RECEIVING_ADDRESS', {
             required: true
         }))
-        var getAddress = new pizzapi.Address(customer.address).getAddressLines()
+        let getAddress = new pizzapi.Address(customer.address).getAddressLines()
 
-        var closestStoreID = await pizzapi.Util.findNearbyStores(
+        let closestStoreID = await pizzapi.Util.findNearbyStores(
             `${getAddress}`,
             'Delivery',
             function (storeData) {
@@ -47,7 +47,7 @@ async function orderPizza(){
             }
         )
 
-        var order = new pizzapi.Order({
+        let order = new pizzapi.Order({
             customer: new pizzapi.Customer(customer),
             // Hardcoded nearest store to Eric
             // To find the store closest to you, hit this url:
@@ -79,8 +79,8 @@ async function orderPizza(){
             }
         )
 
-        var cardInfo = new order.PaymentObject()
-        var cardNumber = core.getInput('CC_NUMBER', {
+        let cardInfo = new order.PaymentObject()
+        let cardNumber = core.getInput('CC_NUMBER', {
             required: true
         })
         cardInfo.Amount = order.Amounts.Customer
@@ -101,7 +101,7 @@ async function orderPizza(){
         await order.place(
             function(result) {
                 core.debug("Order Placed!")
-                resolve(result.order)
+                return(result.order)
             }
         )
     } catch (error) {
@@ -110,6 +110,7 @@ async function orderPizza(){
 };
 
 module.exports = orderPizza;
+
 
 /***/ }),
 
