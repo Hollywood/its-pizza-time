@@ -3,10 +3,10 @@ const orderPizza = require('./lib/order-pizza');
 
 
 // most @actions toolkit packages have async methods
-async function run() {
+function run() {
   try {
     core.debug("Creating Order");
-    const order = await orderPizza();
+    const order = orderPizza();
     core.setOutput("Order Details", order);
   } catch (error) {
     core.setOutput("Error_Message", error.message)
