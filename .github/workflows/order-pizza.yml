@@ -12,7 +12,7 @@ jobs:
   place_order:
 
     # Will run on linux
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     
     # Checking the comment body for our trigger phrase
     # If found in the body, the steps below will run
