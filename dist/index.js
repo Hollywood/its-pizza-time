@@ -48,6 +48,9 @@ async function orderPizza(){
             }
         )
 
+        core.debug("Fetched the closest store")
+        await wait(parseInt(10000));
+
         let order = new pizzapi.Order({
             customer: new pizzapi.Customer(customer),
             // Hardcoded nearest store to Eric
@@ -71,7 +74,7 @@ async function orderPizza(){
         await order.validate(
             function(result) {
                 core.debug("Order Validated!")
-                core.debug(JSON.stringify(result.order))
+                console.log(result.order)
             }
         )
 
@@ -80,7 +83,7 @@ async function orderPizza(){
         await order.price(
             function(result) {
                 core.debug("Price Added")
-                core.debug(JSON.stringify(result.order))
+                console.log(result.order)
             }
         )
 
@@ -108,7 +111,7 @@ async function orderPizza(){
         await order.place(
             function(result) {
                 core.debug("Order Placed!")
-                core.debug(JSON.stringify(result.order))
+                console.log(result.order)
                 return(result.order)
             }
         )
