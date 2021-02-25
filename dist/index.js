@@ -35,12 +35,11 @@ const wait = __nccwpck_require__(5817)
 
 async function orderPizza(){
     try {
-        let customer = JSON.parse(core.getInput('RECEIVING_ADDRESS', {
-            required: true
-        }))
-        let getAddress = new pizzapi.Address(customer.address).getAddressLines()
+        var customerData = JSON.stringify(core.getInput('RECEIVING_ADDRESS'))
+        var customer = JSON.parse(customerData)
+        var getAddress = new pizzapi.Address(customer.address).getAddressLines()
 
-        let closestStoreID = await pizzapi.Util.findNearbyStores(
+        var closestStoreID = await pizzapi.Util.findNearbyStores(
             `${getAddress}`,
             'Delivery',
             function (storeData) {
@@ -49,6 +48,7 @@ async function orderPizza(){
         )
 
         if (closestStoreID === undefined || closestStoreID == '') {
+            console.log(closestStoreID)
             core.setFailed("Couldn't find a store close to this address.")
             core.setOutput('ERROR_MESSAGE', "Couldn't find a store close to this address.");
             process.exit(1)
@@ -116,13 +116,13 @@ async function orderPizza(){
 
         order.Payments.push(cardInfo)
 
-        order.place(
+        /*order.place(
             function(result) {
                 core.debug("Order Placed!")
                 console.log(order)
                 return(result.order)
             }
-        )
+        )*/
     } catch (error) {
         core.setFailed(error.message)
         core.setOutput('ERROR_MESSAGE', error.message);
