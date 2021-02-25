@@ -26,28 +26,41 @@ run();
 
 /***/ }),
 
+/***/ 7934:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const pizzapi = __nccwpck_require__(5636)
+
+module.exports = async function getStoreID(address) {
+  return new Promise ( async (resolve) => {
+    await pizzapi.Util.findNearbyStores(
+        `${address}`,
+        'Delivery',
+        function (storeData) {
+          resolve(storeData)
+        }
+    )
+  })
+}
+
+/***/ }),
+
 /***/ 6552:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const fs = __nccwpck_require__(5747)
 const core = __nccwpck_require__(2186)
 const pizzapi = __nccwpck_require__(5636)
+const getStoreID = __nccwpck_require__(7934)
 const wait = __nccwpck_require__(5817)
 
 async function orderPizza(){
     try {
         var customerData = core.getInput('RECEIVING_ADDRESS', { required: true })
         var customer = JSON.parse(customerData)
-        var getAddress = new pizzapi.Address(customer.address)
+        var customerAddress = new pizzapi.Address(customer.address)
 
-        var closestStoreData = await pizzapi.Util.findNearbyStores(
-            `${getAddress}`,
-            'Delivery',
-            function (storeData) {
-                console.log(storeData)
-                return storeData
-            }
-        )
+        var closestStoreData = await getStoreID(customerAddress)
 
         await wait(parseInt(10000));
 
