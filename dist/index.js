@@ -48,9 +48,9 @@ async function orderPizza(){
             }
         )
 
-        if (closestStoreID === undefined || closestStoreID == '') {
+        if (!closestStoreID) {
             core.setOutput('ERROR_MESSAGE', "Couldn't find a store close to this address.");
-            process.exit(1);
+            core.setFailed("Couldn't find a store close to this address.")
         }
 
         core.debug("Fetched the closest store")
