@@ -32,6 +32,7 @@ jobs:
     - name: Order Pizza
       uses: hollywood/its-pizza-time@main
       with:
+        RECEIVING_ADDRESS: ${{ secrets.ALEXANDRIA_ADDRESS }}
         CC_Number: ${{ secrets.CC_NUMBER }}
         CC_Exp: ${{ secrets.CC_EXP }}
         CC_CVV: ${{ secrets.CC_CVV }}
