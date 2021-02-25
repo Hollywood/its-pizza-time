@@ -1,13 +1,27 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Pizza Time'
+description: 'Order a pizza from Dominos using an Issue Command'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  CC_Number: 
+    description: 'Credit Card Number'
     required: true
-    default: '1000'
+    default: '1234432112344321'
+  CC_Exp:
+    descriptin: 'Credit Card Exp Date'
+    required: true
+    default: 0121
+  CC_CVV:
+    description: 'CVV of Credit Card'
+    required: true
+    default: 111
+  CC_Zip:
+    description: 'Zip Code of Billing Address'
+    required: true
+    default: 01234
 outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  Order_Number: 
+    description: 'Your Order Number'
+  Time_to_Deliver:
+    description: 'Length of time until delivery' 
 runs:
   using: 'node12'
   main: 'dist/index.js'
