@@ -43,7 +43,7 @@ function orderPizza(){
         var closestStoreID = pizzapi.Util.findNearbyStores(
             `${getAddress}`,
             'Delivery',
-            function (result) {
+            function (storeData) {
                 console.log(storeData)
                 if (storeData.status !== 0) {
                    core.setFailed("Couldn't find a store close to this address.")
