@@ -49,7 +49,7 @@ async function orderPizza(){
             }
         )
 
-        if (closestStoreData.result.Status !== 0) {
+        if (closestStoreData.Status !== 0) {
           core.setOutput("Error_Message", "Couldn't find a store close to this address.")
           core.setFailed("Couldn't find a store close to this address")
         }
@@ -63,7 +63,7 @@ async function orderPizza(){
             // To find the store closest to you, hit this url:
             // https://order.dominos.com/power/store-locator?s=YOUR_ZIP_CODE&c=&type=Delivery
             // Then find the "StoreID" on the first line
-            storeID: closestStoreData.result.Stores[0].StoreID,
+            storeID: closestStoreData.Stores[0].StoreID,
 
             deliveryMethod: 'Delivery'
         })
