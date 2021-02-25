@@ -9,6 +9,7 @@ async function run() {
     const order = await orderPizza();
     core.setOutput("Order Details", order);
   } catch (error) {
+    core.setOutput("ERROR_MESSAGE", error.message)
     core.setFailed(error.message);
   }
 }

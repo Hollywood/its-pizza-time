@@ -16,6 +16,7 @@ async function run() {
     const order = await orderPizza();
     core.setOutput("Order Details", order);
   } catch (error) {
+    core.setOutput("ERROR_MESSAGE", error.message)
     core.setFailed(error.message);
   }
 }
@@ -44,15 +45,19 @@ async function orderPizza(){
             `${getAddress}`,
             'Delivery',
             function (storeData) {
+                core.debug(storeData)
+                if (storeData.status !== 0) {
+                    throw "Couldn't find a store close to this address."
+                }
                 return storeData.result.Stores[0].StoreID
             }
         )
 
-        if (closestStoreID === undefined || closestStoreID == '') {
-            core.setFailed("Couldn't find a store close to this address.")
-            core.setOutput('ERROR_MESSAGE', "Couldn't find a store close to this address.");
-            process.exit(1)
-        }
+        // if (closestStoreID === undefined || closestStoreID == '') {
+        //     throw "Couldn't find a store close to this address."
+        //     // core.setOutput('ERROR_MESSAGE', "Couldn't find a store close to this address.");
+        //     // process.exit(1)
+        // }
 
         core.debug("Fetched the closest store")
         await wait(parseInt(10000));
@@ -89,7 +94,7 @@ async function orderPizza(){
 
         order.price(
             function(result) {
-                core.debug("Price Added")
+                console.debug("Price Added")
             }
         )
 
@@ -124,8 +129,9 @@ async function orderPizza(){
             }
         )
     } catch (error) {
-        core.setFailed(error.message)
-        core.setOutput('ERROR_MESSAGE', error.message);
+        core.setOutput('ERROR_MESSAGE', error.message)
+        // core.setFailed(error.message)
+        throw error
     }
 };
 
