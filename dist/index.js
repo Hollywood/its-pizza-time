@@ -40,7 +40,7 @@ function orderPizza(){
         const customer = JSON.parse(customerData)
         const getAddress = new pizzapi.Address(customer.address).getAddressLines()
 
-        console.log(getAddress)
+        
 
         const closestStoreID = pizzapi.Util.findNearbyStores(
             `${getAddress}`,
@@ -54,9 +54,11 @@ function orderPizza(){
             }
         )
 
+        console.log(closestStoreID)
+
         if (closestStoreID === undefined || closestStoreID == '') {
-             core.setOutput('ERROR_MESSAGE', "Couldn't find a store close to this address.");
-             throw "Couldn't find a store close to this address."
+             //core.setOutput('ERROR_MESSAGE', "Couldn't find a store close to this address.");
+             throw new Error("Couldn't find a store close to this address.")
              //process.exit(1)
         }
 
