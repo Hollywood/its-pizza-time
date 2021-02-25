@@ -36,27 +36,25 @@ const wait = __nccwpck_require__(5817)
 
 function orderPizza(){
     try {
-        const customerData = core.getInput('RECEIVING_ADDRESS', { required: true })
-        const customer = JSON.parse(customerData)
-        const getAddress = new pizzapi.Address(customer.address).getAddressLines()
+        var customerData = core.getInput('RECEIVING_ADDRESS', { required: true })
+        var customer = JSON.parse(customerData)
+        var getAddress = new pizzapi.Address(customer.address).getAddressLines()
 
-        
-
-        const closestStoreID = pizzapi.Util.findNearbyStores(
+        var closestStoreID = pizzapi.Util.findNearbyStores(
             `${getAddress}`,
             'Delivery',
             function (result) {
-                console.log(result)
-                //if (storeData.status !== 0) {
-                //    throw "Couldn't find a store close to this address."
-                //}
-                return result.Stores[0].StoreID
+                console.log(storeData)
+                if (storeData.status !== 0) {
+                   core.setFailed("Couldn't find a store close to this address.")
+                }
+                return storeData.result.Stores[0].StoreID
             }
         )
 
-        if (closestStoreID === undefined || closestStoreID == '') {
-             throw new Error("Couldn't find a store close to this address.")
-        }
+        //if (closestStoreID === undefined || closestStoreID == '') {
+        //     throw new Error("Couldn't find a store close to this address.")
+        //}
 
         core.debug("Fetched the closest store")
         //await wait(parseInt(10000));
