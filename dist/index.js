@@ -54,8 +54,6 @@ function orderPizza(){
             }
         )
 
-        console.log(closestStoreID.stores)
-
         if (closestStoreID === undefined || closestStoreID == '') {
              throw new Error("Couldn't find a store close to this address.")
         }
