@@ -56,9 +56,9 @@ const wait = __nccwpck_require__(5817)
 
 async function orderPizza(){
     try {
-        var customerData = core.getInput('RECEIVING_ADDRESS', { required: true })
+        var customerData = core.getInput('RECEIVING_ADDRESS')
         var customer = JSON.parse(customerData)
-        var customerAddress = new pizzapi.Address(customer.address)
+        var customerAddress = new pizzapi.Address(customer.address).getAddressLines()
 
         var closestStoreData = await getStoreID(customerAddress)
 
