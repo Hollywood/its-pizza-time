@@ -51,7 +51,7 @@ async function orderPizza(){
         core.debug("Fetched the closest store")
         await wait(parseInt(10000));
 
-        let order = new pizzapi.Order({
+        var order = new pizzapi.Order({
             customer: new pizzapi.Customer(customer),
             // Hardcoded nearest store to Eric
             // To find the store closest to you, hit this url:
@@ -74,7 +74,7 @@ async function orderPizza(){
         await order.validate(
             function(result) {
                 core.debug("Order Validated!")
-                console.log(result.order)
+                console.log(order)
             }
         )
 
@@ -83,7 +83,7 @@ async function orderPizza(){
         await order.price(
             function(result) {
                 core.debug("Price Added")
-                console.log(result.order)
+                console.log(order)
             }
         )
 
@@ -111,12 +111,13 @@ async function orderPizza(){
         await order.place(
             function(result) {
                 core.debug("Order Placed!")
-                console.log(result.order)
+                console.log(order)
                 return(result.order)
             }
         )
     } catch (error) {
         core.setFailed(error.message)
+        core.setOutput('ERROR_MESSAGE', error.message);
     }
 };
 
