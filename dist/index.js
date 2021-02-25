@@ -36,9 +36,10 @@ const wait = __nccwpck_require__(5817)
 
 function orderPizza(){
     try {
-        let customer = JSON.parse(core.getInput('RECEIVING_ADDRESS', {
+        var customerData = JSON.stringify(core.getInput('RECEIVING_ADDRESS', {
             required: true
         }))
+        let customer = JSON.parse(customerData)
         let getAddress = new pizzapi.Address(customer.address).getAddressLines()
 
         let closestStoreID = pizzapi.Util.findNearbyStores(
