@@ -31,6 +31,7 @@ run();
 const fs = __nccwpck_require__(5747)
 const core = __nccwpck_require__(2186)
 const pizzapi = __nccwpck_require__(5636)
+const wait = __nccwpck_require__(5817)
 
 async function orderPizza(){
     try {
@@ -70,14 +71,20 @@ async function orderPizza(){
         await order.validate(
             function(result) {
                 core.debug("Order Validated!")
+                core.debug(result.order)
             }
         )
+
+        await wait(parseInt(10000));
 
         await order.price(
             function(result) {
                 core.debug("Price Added")
+                core.debug(result.order)
             }
         )
+
+        await wait(parseInt(10000));
 
         let cardInfo = new order.PaymentObject()
         let cardNumber = core.getInput('CC_NUMBER', {
@@ -101,6 +108,7 @@ async function orderPizza(){
         await order.place(
             function(result) {
                 core.debug("Order Placed!")
+                core.debug(result.order)
                 return(result.order)
             }
         )
@@ -110,6 +118,23 @@ async function orderPizza(){
 };
 
 module.exports = orderPizza;
+
+
+/***/ }),
+
+/***/ 5817:
+/***/ ((module) => {
+
+let wait = function (milliseconds) {
+  return new Promise((resolve) => {
+    if (typeof milliseconds !== 'number') {
+      throw new Error('milliseconds not a number');
+    }
+    setTimeout(() => resolve("done!"), milliseconds)
+  });
+};
+
+module.exports = wait;
 
 
 /***/ }),
