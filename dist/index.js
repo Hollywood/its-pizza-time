@@ -63,7 +63,7 @@ function orderPizza(){
             // To find the store closest to you, hit this url:
             // https://order.dominos.com/power/store-locator?s=YOUR_ZIP_CODE&c=&type=Delivery
             // Then find the "StoreID" on the first line
-            storeID: closestStoreData.result.Stores[0].storeID,
+            storeID: closestStoreData.result.Stores[0].StoreID,
 
             deliveryMethod: 'Delivery'
         })
