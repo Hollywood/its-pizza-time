@@ -39,6 +39,18 @@ jobs:
       env:
         LOG_LEVEL: debug
 
+    - name: Set order status to failure
+      uses: actions/github-script@v3
+      if: failure()
+      with:
+        script: |
+          return github.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: github.event.comment.issue_number
+            body: "Sorry! Your order failed."
+          })
+
 
   order_munich:
     runs-on: macos-latest
@@ -60,3 +72,16 @@ jobs:
         CC_ZIP: ${{ secrets.CC_ZIP }}
       env:
         LOG_LEVEL: debug
+
+
+    - name: Set order status to failure
+      uses: actions/github-script@v3
+      if: failure()
+      with:
+        script: |
+          return github.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: github.event.comment.issue_number
+            body: "Sorry! Your order failed."
+          })
