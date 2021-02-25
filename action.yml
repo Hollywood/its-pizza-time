@@ -16,7 +16,7 @@ inputs:
   CC_Zip:
     description: 'Zip Code of Billing Address'
     required: true
-    default: 01234
+    default: 12345
   RECEIVING_ADDRESS:
     description: 'Delivery address'
     required: true
@@ -27,6 +27,8 @@ outputs:
     description: 'Length of time until delivery' 
   Error_Message:
     description: 'What caused the job to fail'
+  Order_Details:
+    description: 'Order details'
 runs:
   using: 'node12'
   main: 'dist/index.js'

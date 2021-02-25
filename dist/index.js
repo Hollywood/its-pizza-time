@@ -14,10 +14,10 @@ function run() {
   try {
     core.debug("Creating Order");
     const order = orderPizza();
-    core.setOutput("Order Details", order);
+    core.setOutput("Order_Details", order);
   } catch (error) {
-    core.setOutput("Error_Message", error.message)
-    core.setFailed(error.message);
+    core.setOutput("Error_Message", error)
+    core.setFailed(error);
   }
 }
 
