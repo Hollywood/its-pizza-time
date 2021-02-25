@@ -129,8 +129,8 @@ async function orderPizza(){
             }
         )
     } catch (error) {
-        // core.setOutput('Error_Message', error.message)
-        // core.setFailed(error.message)
+        core.setOutput('Error_Message', error.message)
+        core.setFailed(error.message)
         throw error
     }
 };
