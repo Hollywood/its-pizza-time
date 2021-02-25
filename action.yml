@@ -6,7 +6,7 @@ inputs:
     required: true
     default: '1234432112344321'
   CC_Exp:
-    descriptin: 'Credit Card Exp Date'
+    description: 'Credit Card Exp Date'
     required: true
     default: 0121
   CC_CVV:
@@ -17,6 +17,9 @@ inputs:
     description: 'Zip Code of Billing Address'
     required: true
     default: 01234
+  RECEIVING_ADDRESS:
+    description: 'Delivery address'
+    required: true
 outputs:
   Order_Number: 
     description: 'Your Order Number'

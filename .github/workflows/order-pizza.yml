@@ -5,18 +5,17 @@ name: Order Large Cheese Pizza
 # Event we will be listening for
 on: [issue_comment]
 
-# Entry point to our workflow jobs
 jobs:
 
   # Places an order
-  place_order:
+  order_alex:
 
     # Will run on linux
     runs-on: macos-latest
     
     # Checking the comment body for our trigger phrase
     # If found in the body, the steps below will run
-    if: (contains(github.event.comment.body,'/order pizza'))
+    if: (contains(github.event.comment.body,'/order pizza Alexandria'))
 
     # The procedural functionality of the place_order job
     steps:
@@ -24,7 +23,7 @@ jobs:
     
     #Build Project
     - name: Use Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: '12'
 
@@ -33,6 +32,28 @@ jobs:
       uses: hollywood/its-pizza-time@main
       with:
         RECEIVING_ADDRESS: ${{ secrets.ALEXANDRIA_ADDRESS }}
+        CC_NUMBER: ${{ secrets.CC_NUMBER }}
+        CC_EXP: ${{ secrets.CC_EXP }}
+        CC_CVV: ${{ secrets.CC_CVV }}
+        CC_ZIP: ${{ secrets.CC_ZIP }}
+      env:
+        LOG_LEVEL: debug
+
+
+  order_munich:
+    runs-on: ubuntu-latest
+    if: (contains(github.event.comment.body,'/order pizza Munich'))
+
+    # The procedural functionality of the place_order job
+    steps:
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '12'
+
+    - name: Order Pizza
+      uses: hollywood/its-pizza-time@main
+      with:
+        RECEIVING_ADDRESS: ${{ secrets.MUNICH_ADDRESS }}
         CC_NUMBER: ${{ secrets.CC_NUMBER }}
         CC_EXP: ${{ secrets.CC_EXP }}
         CC_CVV: ${{ secrets.CC_CVV }}
