@@ -11,7 +11,7 @@ jobs:
   order_alex:
 
     # Will run on linux
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     outputs:
       ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.Error_Message }}
     
@@ -55,7 +55,7 @@ jobs:
 
 
   order_munich:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     outputs:
       Error_Message: ${{ steps.Order-Pizza.outputs.Error_Message }}
       
