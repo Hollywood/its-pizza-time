@@ -32,11 +32,12 @@ run();
 const fs = __nccwpck_require__(5747)
 const core = __nccwpck_require__(2186)
 const pizzapi = __nccwpck_require__(5636)
-a
+
 async function orderPizza(){
     try {
-        var customerData = fs.readFileSync('./customer.json')
-        var customer = JSON.parse(customerData)
+        var customer = JSON.parse(core.getInput('RECEIVING_ADDRESS', {
+            required: true
+        }))
         var getAddress = new pizzapi.Address(customer.address).getAddressLines()
 
         var closestStoreID = await pizzapi.Util.findNearbyStores(
