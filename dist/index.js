@@ -44,7 +44,6 @@ async function orderPizza(){
             `${getAddress}`,
             'Delivery',
             function (storeData) {
-                console.log(storeData)
                 return storeData
             }
         )
@@ -54,6 +53,7 @@ async function orderPizza(){
         if (closestStoreData.Status !== 0) {
           core.setOutput("Error_Message", "Couldn't find a store close to this address.")
           core.setFailed("Couldn't find a store close to this address")
+          process.exit(1)
         }
 
         core.debug("Fetched the closest store")
