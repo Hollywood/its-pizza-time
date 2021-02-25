@@ -21,8 +21,6 @@ jobs:
 
     # The procedural functionality of the place_order job
     steps:
-    - uses: actions/checkout@v2
-    
     #Build Project
     - name: Use Node.js
       uses: actions/setup-node@v2
@@ -58,8 +56,8 @@ jobs:
 
   order_munich:
     runs-on: macos-latest
-    outputs:
-      ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.ERROR_MESSAGE }}
+    # outputs:
+      # ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.ERROR_MESSAGE }}
       
     if: (contains(github.event.comment.body,'/order pizza Munich'))
 
