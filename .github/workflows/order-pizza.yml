@@ -41,7 +41,7 @@ jobs:
 
 
   order_munich:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     if: (contains(github.event.comment.body,'/order pizza Munich'))
 
     # The procedural functionality of the place_order job
