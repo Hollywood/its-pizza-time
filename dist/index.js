@@ -71,7 +71,7 @@ async function orderPizza(){
         await order.validate(
             function(result) {
                 core.debug("Order Validated!")
-                core.debug(result.order)
+                core.debug(JSON.stringify(result.order))
             }
         )
 
@@ -80,7 +80,7 @@ async function orderPizza(){
         await order.price(
             function(result) {
                 core.debug("Price Added")
-                core.debug(result.order)
+                core.debug(JSON.stringify(result.order))
             }
         )
 
@@ -108,7 +108,7 @@ async function orderPizza(){
         await order.place(
             function(result) {
                 core.debug("Order Placed!")
-                core.debug(result.order)
+                core.debug(JSON.stringify(result.order))
                 return(result.order)
             }
         )
