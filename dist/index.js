@@ -46,20 +46,18 @@ function orderPizza(){
             `${getAddress}`,
             'Delivery',
             function (storeData) {
-                core.debug(storeData)
+                console.log(storeData)
                 //if (storeData.status !== 0) {
                 //    throw "Couldn't find a store close to this address."
                 //}
-                return storeData.result.Stores[0].StoreID
+                return storeData.Stores[0].StoreID
             }
         )
 
         console.log(closestStoreID)
 
         if (closestStoreID === undefined || closestStoreID == '') {
-             //core.setOutput('ERROR_MESSAGE', "Couldn't find a store close to this address.");
              throw new Error("Couldn't find a store close to this address.")
-             //process.exit(1)
         }
 
         core.debug("Fetched the closest store")
