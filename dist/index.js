@@ -48,6 +48,11 @@ async function orderPizza(){
             }
         )
 
+        if (closestStoreID === undefined) {
+            core.setOutput('ERROR_MESSAGE', "Couldn't find a store close to this address.");
+            process.exit(1);
+        }
+
         core.debug("Fetched the closest store")
         await wait(parseInt(10000));
 
@@ -71,23 +76,25 @@ async function orderPizza(){
             })
         )
         
-        await order.validate(
+        order.validate(
             function(result) {
                 core.debug("Order Validated!")
-                console.log(order)
             }
         )
 
-        await wait(parseInt(10000));
+        console.log(order)
 
-        await order.price(
+        await wait(parseInt(20000));
+
+        order.price(
             function(result) {
                 core.debug("Price Added")
-                console.log(order)
             }
         )
 
-        await wait(parseInt(10000));
+        console.log(order)
+
+        await wait(parseInt(20000));
 
         let cardInfo = new order.PaymentObject()
         let cardNumber = core.getInput('CC_NUMBER', {
@@ -108,7 +115,7 @@ async function orderPizza(){
 
         order.Payments.push(cardInfo)
 
-        await order.place(
+        order.place(
             function(result) {
                 core.debug("Order Placed!")
                 console.log(order)
