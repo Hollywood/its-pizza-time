@@ -3,8 +3,8 @@
 name: Order Large Cheese Pizza
 
 # Event we will be listening for
-on: [issue_comment]
-
+on: issue_comment:
+  types: [created]
 jobs:
 
   # Places an order
