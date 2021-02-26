@@ -10,7 +10,7 @@ jobs:
   # Places an order
   order_alex:
 
-    # Will run on linux
+    # Will run on mac
     runs-on: macos-latest
     outputs:
       ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.Error_Message }}
