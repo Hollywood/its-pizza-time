@@ -1,6 +1,9 @@
 name: 'Pizza Time'
 description: 'Order a pizza from Dominos using an Issue Command'
 inputs:
+  RECEIVING_ADDRESS:
+    description: 'Delivery address'
+    required: true
   CC_Number: 
     description: 'Credit Card Number'
     required: true
@@ -17,9 +20,6 @@ inputs:
     description: 'Zip Code of Billing Address'
     required: true
     default: 12345
-  RECEIVING_ADDRESS:
-    description: 'Delivery address'
-    required: true
 outputs:
   Order_Number: 
     description: 'Your Order Number'
