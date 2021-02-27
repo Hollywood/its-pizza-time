@@ -27,3 +27,6 @@ Compile project using ncc
 ```bash
 npm run prepare
 ```
+## Other References
+
+Check out the API wrapper I'm using developed by @RIAEvangelist over at: [Dominos Node API](https://github.com/RIAEvangelist/node-dominos-pizza-api)
