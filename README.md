@@ -14,19 +14,31 @@ Example: `/order pizza person_name`
 - `CC_EXP`: Credit Card Zip
 - `CC_CVV`: Credit Card CVV
 - `CC_ZIP`: Billing Zip
+- `NAME-OF-FRIEND_ADDRESS`: Each one unique, but the `customer` object of the friend you want to send 🍕 to (see below)
 
-## Code in Main
+## Customer Object
 
-Install the dependencies
-
-```bash
-npm install
+```json
+{
+  "address": {
+    "Street": "745 Evergreen Terr",
+    "City": "Springfield",
+    "Region": "????",
+    "PostalCode": 12345,
+  },
+  "firstName": "Homer",
+  "lastName": "Simpson",
+  "phone": "(123)-456-7890",
+  "email": "HomerJ@MrPlow.com"
+}
 ```
 
-Compile project using ncc
-```bash
-npm run prepare
-```
+## Example 
+
+In an Issue comment, assuming the object above is called `Homer_Address` in your secret store, run:
+
+`/order pizza Homer`
+
 ## Other References
 
 Check out the API wrapper I'm using developed by @RIAEvangelist over at: [Dominos Node API](https://github.com/RIAEvangelist/node-dominos-pizza-api)
