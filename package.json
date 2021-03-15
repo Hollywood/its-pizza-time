@@ -26,7 +26,7 @@
   "homepage": "https://github.com/actions/javascript-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "dominos": "^2.1.2"
+    "dominos": "^3.3.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.27.0",
