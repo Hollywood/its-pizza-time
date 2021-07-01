@@ -3,15 +3,17 @@
 name: Order Large Cheese Pizza
 
 # Event we will be listening for
-on: [issue_comment]
-
+on: 
+  issue_comment:
+    types: [created]
+    
 jobs:
 
   # Places an order
   order_alex:
 
-    # Will run on linux
-    runs-on: macos-latest
+    # Will run on ubuntu
+    runs-on: ubuntu-latest
     outputs:
       ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.Error_Message }}
     
@@ -55,7 +57,7 @@ jobs:
 
 
   order_munich:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     outputs:
       Error_Message: ${{ steps.Order-Pizza.outputs.Error_Message }}
       
@@ -79,6 +81,98 @@ jobs:
       env:
         LOG_LEVEL: debug
 
+
+    - name: Set order status to failure
+      uses: actions/github-script@v3
+      if: failure()
+      with:
+        script: |
+          return github.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: "An error occurred with the order: ${{ steps.Order-Pizza.outputs.Error_Message }}"
+          })
+            
+  # Places an order
+  order_asburn:
+
+    # Will run on ubuntu
+    runs-on: ubuntu-latest
+    outputs:
+      ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.Error_Message }}
+    
+    # Checking the comment body for our trigger phrase
+    # If found in the body, the steps below will run
+    if: (contains(github.event.comment.body,'/order pizza Ashburn'))
+
+    # The procedural functionality of the place_order job
+    steps:
+    #Build Project
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '12'
+
+    #Order Pizza
+    - name: Order-Pizza
+      id: Order-Pizza
+      uses: hollywood/its-pizza-time@main
+      with:
+        RECEIVING_ADDRESS: ${{ secrets.ASHBURN_ADDRESS }}
+        CC_NUMBER: ${{ secrets.CC_NUMBER }}
+        CC_EXP: ${{ secrets.CC_EXP }}
+        CC_CVV: ${{ secrets.CC_CVV }}
+        CC_ZIP: ${{ secrets.CC_ZIP }}
+      env:
+        LOG_LEVEL: debug
+      
+
+    - name: Set order status to failure
+      uses: actions/github-script@v3
+      if: failure()
+      with:
+        script: |
+          return github.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: "An error occurred with the order: ${{ steps.Order-Pizza.outputs.Error_Message }}"
+          })
+
+  # Places an order
+  order_LA:
+
+    # Will run on ubuntu
+    runs-on: ubuntu-latest
+    outputs:
+      ERROR_MESSAGE: ${{ steps.Order-Pizza.outputs.Error_Message }}
+    
+    # Checking the comment body for our trigger phrase
+    # If found in the body, the steps below will run
+    if: (contains(github.event.comment.body,'/order pizza Los Angeles'))
+
+    # The procedural functionality of the place_order job
+    steps:
+    #Build Project
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '12'
+
+    #Order Pizza
+    - name: Order-Pizza
+      id: Order-Pizza
+      uses: hollywood/its-pizza-time@main
+      with:
+        RECEIVING_ADDRESS: ${{ secrets.LOS_ANGELES_ADDRESS }}
+        CC_NUMBER: ${{ secrets.CC_NUMBER }}
+        CC_EXP: ${{ secrets.CC_EXP }}
+        CC_CVV: ${{ secrets.CC_CVV }}
+        CC_ZIP: ${{ secrets.CC_ZIP }}
+      env:
+        LOG_LEVEL: debug
+      
 
     - name: Set order status to failure
       uses: actions/github-script@v3

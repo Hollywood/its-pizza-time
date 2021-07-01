@@ -4,6 +4,7 @@
   <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
 </p>
 
+
 This action will send a pizza from Dominos to Eric or Lukas based on whichever `/` command is entered into an issue comment.
 
 ## Code in Main
@@ -50,60 +51,43 @@ async function run() {
   catch (error) {
     core.setFailed(error.message);
   }
+=======
+This action will send a pizza from Dominos to an address/addresses stored in your secret store based on whichever `/` command is entered into an issue comment.
+
+Example: `/order pizza person_name`
+
+## Necessary Secrets
+
+- `CC_NUMBER`: Credit Card Number
+- `CC_EXP`: Credit Card Zip
+- `CC_CVV`: Credit Card CVV
+- `CC_ZIP`: Billing Zip
+- `NAME-OF-FRIEND_ADDRESS`: Each one unique, but the `customer` object of the friend you want to send 🍕 to (see below)
+
+## Customer Object
+
+```json
+{
+  "address": {
+    "Street": "745 Evergreen Terr",
+    "City": "Springfield",
+    "Region": "????",
+    "PostalCode": 12345,
+  },
+  "firstName": "Homer",
+  "lastName": "Simpson",
+  "phone": "(123)-456-7890",
+  "email": "HomerJ@MrPlow.com"
 }
-
-run()
 ```
 
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
 
-## Package for distribution
+## Example 
 
-GitHub Actions will run the entry point from the action.yml. Packaging assembles the code into one file that can be checked in to Git, enabling fast and reliable execution and preventing the need to check in node_modules.
+In an Issue comment, assuming the object above is called `Homer_Address` in your secret store, run:
 
-Actions are run from GitHub repos.  Packaging the action will create a packaged action in the dist folder.
+`/order pizza Homer`
 
-Run prepare
+## Other References
 
-```bash
-npm run prepare
-```
-
-Since the packaged index.js is run from the dist folder.
-
-```bash
-git add dist
-```
-
-## Create a release branch
-
-Users shouldn't consume the action from master since that would be latest code and actions can break compatibility between major versions.
-
-Checkin to the v1 release branch
-
-```bash
-git checkout -b v1
-git commit -a -m "v1 release"
-```
-
-```bash
-git push origin v1
-```
-
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket:
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Usage
-
-You can now consume the action by referencing the v1 branch
-
-```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+Check out the API wrapper I'm using developed by @RIAEvangelist over at: [Dominos Node API](https://github.com/RIAEvangelist/node-dominos-pizza-api)
