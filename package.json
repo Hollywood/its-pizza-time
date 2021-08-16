@@ -29,7 +29,7 @@
     "dominos": "^2.1.2"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.27.0",
+    "@vercel/ncc": "^0.29.1",
     "eslint": "^7.4.0",
     "jest": "^26.6.3"
   }
